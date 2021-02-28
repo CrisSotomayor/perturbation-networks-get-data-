@@ -1,4 +1,4 @@
-"""Python scripts will the main functions used across the jupyter notebooks."""
+"""Python scripts with the main functions used across the jupyter notebooks."""
 #!/bin/user/env python3
 
 
@@ -165,3 +165,15 @@ def GetList(protein, mincount, measure_cutoffs, thresh=9.0, loss=True):
     positions = map(lambda x:pp.one_to_three(x[0])+x[1:], pos)
 
     return list(positions)
+
+
+def ToPercentage(a,b):
+    """Return percentage form of a/b, if b != 0. If given set or list, use len of.
+    If string, return formatted percentage, else float."""
+    x = a if type(a) == int or type(a) == float else len(a)
+    y = b if type(b) == int or type(b) == float else len(b)
+
+    if y == 0:
+        return np.nan
+    else:
+        return round(100*x/y,1)
