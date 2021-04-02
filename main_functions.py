@@ -138,9 +138,8 @@ def GetNetworkExtremes(protein, mincount, measure_cutoffs, thresh=9.0):
     # In case thresh is given as an int
     thresh = float(thresh)
     network_extremes_list = []
-    for i, measure in enumerate(measures):
-        threshold = (3.8 if measure == 'distance' else thresh)
-        network_df = Standardize(protein, threshold, measure)
+    for i, measure in enumerate(measures[:3]):
+        network_df = Standardize(protein, thresh, measure)
         if measure_cutoffs[i] > 0:
             extremes = network_df.columns[(network_df > measure_cutoffs[i]).any()].tolist()
         else:
@@ -155,7 +154,7 @@ def GetNetworkExtremes(protein, mincount, measure_cutoffs, thresh=9.0):
 def GetList(protein, mincount, measure_cutoffs, thresh=9.0, loss=True):
     """Get list with SSP positions, AA in three letter code.
 
-    If loss==False, use complement for gain preds"""
+    If loss==False, use complement for gain predictions. """
 
     pos = GetNetworkExtremes(protein, mincount, measure_cutoffs, thresh=thresh)
     if not loss:
